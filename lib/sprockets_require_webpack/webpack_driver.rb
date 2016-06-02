@@ -7,7 +7,7 @@ module SprocketsRequireWebpack
       @tempfile = Tempfile.new("bundle.XXXXXXXXX.js")
 
       cmd = "node #{compiler_js_path} #{config} #{entry} #{path.dirname} #{path.basename}"
-      @io = IO.popen(cmd, 'r+')
+      @io = IO.popen({'NODE_ENV' => env}, cmd, 'r+')
     end
 
     def compile
@@ -30,6 +30,10 @@ module SprocketsRequireWebpack
     end
 
     private
+
+    def env
+      defined?(Rails) ? Rails.env : (ENV['NODE_ENV'] || ENV['RACK_ENV'] || 'development')
+    end
 
     def compiler_js_path
       Pathname.new(__FILE__).dirname.join('compiler.js')
