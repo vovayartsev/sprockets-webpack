@@ -27,7 +27,15 @@ This will generate a sample `webpack.config.js` and `index.js`:
 
 ## Heroku
 
-Deployment to Heroku works out of the box.
+Deployment to Heroku works out of the box. Use two buildpacks: *nodejs* and *ruby*, in this order:
+```bash
+heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add heroku/ruby
+```
+
+Then exclude *node_modules* directory from both Git repo (using .gitignore)
+and Heroku slug (using .slugignore)
+
 
 ## Caveates
 
