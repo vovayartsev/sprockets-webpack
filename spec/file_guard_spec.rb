@@ -1,14 +1,14 @@
 require 'minitest/spec'
 require 'minitest/autorun'
-require 'sprockets_require_webpack/file_guard'
+require 'sprockets/webpack/file_guard'
 
-describe SprocketsRequireWebpack::FileGuard do
+describe Sprockets::Webpack::FileGuard do
   let(:path) { Pathname.new('/tmp/some_file.txt') }
   before { FileUtils.touch(path) }
-  let(:guard) { SprocketsRequireWebpack::FileGuard.new(path.to_s) }
+  let(:guard) { Sprockets::Webpack::FileGuard.new(path.to_s) }
 
   it 'can be created' do
-    guard.must_be_instance_of SprocketsRequireWebpack::FileGuard
+    guard.must_be_instance_of Sprockets::Webpack::FileGuard
   end
 
   it 'can detect changes' do

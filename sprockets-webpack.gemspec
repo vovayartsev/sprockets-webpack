@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'sprockets_require_webpack'
+  s.name        = 'sprockets-webpack'
   s.version     = '0.0.1'
   s.date        = '2016-06-01'
   s.summary     = 'Sprockets + Webpack'
@@ -7,11 +7,10 @@ Gem::Specification.new do |s|
   s.authors     = ['Vladimir Yartsev']
   s.email       = 'vovayartsev@gmail.com'
   s.files       = Dir['lib/**/*.rb']
-  s.homepage    = 'http://rubygems.org/vovayartsev/sprockets_require_webpack'
+  s.homepage    = 'http://rubygems.org/vovayartsev/sprockets/webpack'
   s.license     = 'MIT'
 
   s.add_dependency 'sprockets', '>= 3.0.0'
-  # s.add_development_dependency 'pry'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'minitest'
 end

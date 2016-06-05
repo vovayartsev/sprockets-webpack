@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sprockets_require_webpack (0.0.1)
+    sprockets/webpack (0.0.1)
       sprockets (>= 3.0.0)
 
 GEM
@@ -21,7 +21,7 @@ PLATFORMS
 DEPENDENCIES
   minitest
   rake
-  sprockets_require_webpack!
+  sprockets/webpack!
 
 BUNDLED WITH
    1.12.3
