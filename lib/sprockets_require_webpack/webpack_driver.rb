@@ -1,11 +1,12 @@
 require 'pathname'
 require 'benchmark'
+require_relative './file_guard'
 
 module SprocketsRequireWebpack
   class WebpackDriver
     def initialize(config, entry)
       @tempfile = Tempfile.new("bundle.XXXXXXXXX.js")
-
+      @config_guard = FileGuard.new(config)
       cmd = "node #{compiler_js_path} #{config} #{entry} #{path.dirname} #{path.basename} 2>&1"
       @io = IO.popen({'NODE_ENV' => env}, cmd, 'r+')
     end
@@ -13,7 +14,7 @@ module SprocketsRequireWebpack
     def compile
       errors = []
 
-      @io.puts # start compilation
+      @io.puts(@config_guard.detect_change? ? 'RELOAD' : '')  # starts compilation
 
       bm = Benchmark.measure do
         while (line = read_line.strip) != 'WEBPACK::EOF' do

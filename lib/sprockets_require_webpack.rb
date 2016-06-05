@@ -1,7 +1,7 @@
 require 'sprockets'
 require_relative 'sprockets_require_webpack/webpack_directive_processor'
 
-if defined? Rails::Railtie
+if defined?(Rails)
   module SprocketsRequireWebpack
     class Railtie < ::Rails::Railtie
       config.to_prepare do
