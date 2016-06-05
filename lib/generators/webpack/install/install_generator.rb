@@ -9,7 +9,6 @@ module Webpack
     def create_barebone_file
       template 'config/webpack.config.js'
       template 'package.json'
-      template '.slugignore'
     end
 
     def create_sample_assets
@@ -25,7 +24,15 @@ module Webpack
 
     def adjust_gitignore
       if File.exist?('.gitignore')
-        append_to_file '.gitignore', "\n/node_modules\n"
+        append_to_file '.gitignore', "\nnode_modules\n"
+      end
+    end
+
+    def adjust_slugignore
+      if File.exist?('.slugignore')
+        append_to_file '.slugignore', "\nnode_modules\n"
+      else
+        create_file '.slugignore', "node_modules\n"
       end
     end
 
