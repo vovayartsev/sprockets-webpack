@@ -6,33 +6,42 @@ module SprocketsRequireWebpack
     def initialize(config, entry)
       @tempfile = Tempfile.new("bundle.XXXXXXXXX.js")
 
-      cmd = "node #{compiler_js_path} #{config} #{entry} #{path.dirname} #{path.basename}"
+      cmd = "node #{compiler_js_path} #{config} #{entry} #{path.dirname} #{path.basename} 2>&1"
       @io = IO.popen({'NODE_ENV' => env}, cmd, 'r+')
     end
 
     def compile
-      @io.puts # start compilation
-
       errors = []
 
+      @io.puts # start compilation
+
       bm = Benchmark.measure do
-        while ((line = @io.gets.strip) != 'WEBPACK::EOF') do
+        while (line = read_line.strip) != 'WEBPACK::EOF' do
           errors << line
         end
       end
 
       OpenStruct.new(errors: errors, data: path.read, benchmark: bm)
-    rescue Errno::EPIPE
+    rescue Errno::EPIPE, IOError
+      errors.unshift '----- NODE BACKTRACE -----'
+      errors.unshift "#{$!.message}. Please check webpack.conf.js and restart web server"
+      errors.unshift
       OpenStruct.new(
-          errors: ['Broken pipe. Webpack died', 'Please check STDERR and restart web server'],
+          errors: errors,
           data: 'console.error("Broken pipe. Webpack died.")',
           benchmark: "<#{@io.pid} died>")
     end
 
     private
 
+    def read_line
+      @io.gets or raise IOError, 'Webpack died'
+    end
+
     def env
-      defined?(Rails) ? Rails.env : (ENV['NODE_ENV'] || ENV['RACK_ENV'] || 'development')
+      ENV.fetch('NODE_ENV') do
+        defined?(Rails) ? Rails.env : (ENV['RACK_ENV'] || 'development')
+      end
     end
 
     def compiler_js_path

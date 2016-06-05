@@ -1,3 +1,4 @@
-* restart if config changed
+* restart if config changed - via signal?
 * more verbose logging
-
+* handle errors in config
+* rename: webpack_for_dummies
