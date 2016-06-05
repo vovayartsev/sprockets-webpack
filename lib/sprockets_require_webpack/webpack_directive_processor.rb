@@ -8,6 +8,7 @@ module SprocketsRequireWebpack
       entry = entry_from_absolute_path(absolute_path)
 
       add_path_to_dependencies_list(absolute_path)
+      add_webpack_config_to_dependencies_list
 
       compiled = driver_for(entry).compile
       logger.info "WEBPACK: #{compiled.benchmark}"
@@ -48,6 +49,10 @@ module SprocketsRequireWebpack
 
     def add_path_to_dependencies_list(path)
       require_webpack_paths(*@environment.stat_sorted_tree_with_dependencies(path))
+    end
+
+    def add_webpack_config_to_dependencies_list
+      @dependencies << "file-digest://#{webpack_config}"
     end
 
     def require_webpack_paths(paths, deps)
