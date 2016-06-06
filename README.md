@@ -33,6 +33,15 @@ This will generate a sample `webpack.config.js` and `index.js`:
 
 Webpack will be executed automatically when you run Rails in development environment, or when you run `rake assets:precompile` in production.
 
+## Different webpack.conf.js in production?
+You can customize your [webpack.js.conf](https://github.com/vovayartsev/sprockets-webpack/blob/master/lib/generators/webpack/install/templates/config/webpack.config.js) based on NODE_ENV environment variable
+which is exposed to webpack.js.conf and defaults to your Rails env. E.g.
+```js
+if (process.env.NODE_ENV == 'development') {
+  config.devtool = '#eval-source-map';
+}
+```
+
 ## Heroku
 
 Deployment to Heroku works out of the box. Use two buildpacks: *nodejs* and *ruby*, in this order:
