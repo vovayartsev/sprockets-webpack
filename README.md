@@ -21,9 +21,9 @@ This will generate a sample `webpack.config.js` and `index.js`:
 ## What's next?
 
 * configure `config/webpack.config.js`
-* install more packages, e.g. `npm install react --save`
+* install more packages, e.g. `npm install react --save`  (remember to restart Rails server after that)
 * require installed packages, e.g. `import React from 'react';`
-* notice "webpack://" domain in *Sources* tab in Chrome Dev Tools
+* notice `webpack://` domain in *Sources* tab in Chrome Dev Tools
 
 ## Heroku
 
