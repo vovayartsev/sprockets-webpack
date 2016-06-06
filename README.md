@@ -25,6 +25,14 @@ This will generate a sample `webpack.config.js` and `index.js`:
 * require installed packages in index.js using ES6 syntax, e.g. `import React from 'react';`
 * notice `webpack://` domain in *Sources* tab in Chrome Dev Tools
 
+## Manual Setup
+
+1. Put your config into `config/webpack.config.js`. Omit *entry* and *output* sections - they will be generated automatically
+2. Put your JS sources e.g. into `app/assets/webpack`, create `index.js` there
+3. In your *application.js* put `//= require_webpack_tree <path-to-js-folder>`
+
+Webpack will be executed automatically when you run Rails in development environment, or when you run `rake assets:precompile` in production.
+
 ## Heroku
 
 Deployment to Heroku works out of the box. Use two buildpacks: *nodejs* and *ruby*, in this order:
