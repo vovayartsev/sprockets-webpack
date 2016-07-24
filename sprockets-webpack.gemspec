@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'sprockets-webpack'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2016-06-01'
   s.summary     = 'Sprockets + Webpack'
   s.description = 'require_webpack_tree directive for Sprockets'

@@ -21,7 +21,8 @@ module Sprockets
 
       def _call(_)
         result = super
-        super.merge(data: result[:data] + "\n\n\n" + @webpack_data)
+        joined_data = [result[:data], "\n\n\n", @webpack_data].compact.join
+        result.merge(data: joined_data)
       end
 
       private
@@ -55,8 +56,8 @@ module Sprockets
       end
 
       def require_webpack_paths(paths, deps)
-        # this adds files to "dependencies" list as a side effect
-        resolve_paths(paths, deps, accept: @content_type, pipeline: :self) do |_uri|
+        paths.each.map(&:first).each do |path|
+          @dependencies << "file-digest://#{path}"
         end
       end
 

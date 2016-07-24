@@ -37,7 +37,7 @@ module Webpack
     end
 
     def add_packages
-      system 'npm install webpack babel-core babel-loader babel-preset-es2015 babel-preset-react --save'
+      system 'npm install webpack babel-core babel-loader babel-preset-es2015 --save'
     end
   end
 end
